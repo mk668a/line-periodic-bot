@@ -48,11 +48,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     texts = [
-        "おはよう",
-        "こんにちは",
-        "おはよう",
-        "おはよう",
-        "おはよう",
+        "おはよう\uF604",
+        "\uDBC0\uDC78"
     ]
     line_bot_api.reply_message(
         event.reply_token,
