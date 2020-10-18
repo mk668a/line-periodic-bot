@@ -53,11 +53,11 @@ def callback():
 
 
 def sendMessage():
-    to = ["aaotfsm"]
+    to = ["U3938e2a7863ee6516ff6dc83fce2024e"]
     messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
     print(messages)
     try:
-        line_bot_api.push_message("aaotfsm", messages=messages)
+        line_bot_api.push_message("U3938e2a7863ee6516ff6dc83fce2024e", messages=messages)
     except LineBotApiError as e:
         print(e)
     try:
