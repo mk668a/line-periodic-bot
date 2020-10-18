@@ -24,7 +24,7 @@ line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 texts = [
-    "おはよう\u1F600",
+    "おはよう\u263A",
     "\uDBC0\uDC78"
 ]
 
