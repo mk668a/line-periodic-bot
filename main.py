@@ -12,6 +12,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+from linebot.exceptions import LineBotApiError
+
 app = Flask(__name__)
 
 # 環境変数取得
@@ -56,23 +58,26 @@ def sendMessage():
     print(messages)
     try:
         line_bot_api.push_message("aaotfsm", messages=messages)
-    except:
-        print('error')
+    except LineBotApiError as e:
+        print(e)
     try:
         line_bot_api.multicast(to, messages=messages)
-    except:
-        print('error')
+    except LineBotApiError as e:
+        print(e)
     try:
         line_bot_api.broadcast(messages=messages)
-    except:
-        print('error')
+    except LineBotApiError as e:
+        print(e)
 
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
     print(messages)
-    line_bot_api.reply_message(event.reply_token, messages)
+    try:
+        line_bot_api.reply_message(event.reply_token, messages)
+    except LineBotApiError as e:
+        print(e)
     sendMessage()
 
 
