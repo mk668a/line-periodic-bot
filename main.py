@@ -64,5 +64,7 @@ if __name__ == "__main__":
         "おはよう\u1F600",
         "\uDBC0\uDC78"
     ]
+    line_bot_api.push_message("aaotfsm", messages=TextSendMessage(
+        text=texts[random.randint(0, len(texts)-1)]))
     line_bot_api.broadcast(TextSendMessage(
         text=texts[random.randint(0, len(texts)-1)]))
