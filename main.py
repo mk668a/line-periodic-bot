@@ -48,12 +48,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     texts = [
-        "おはよう\u1F600",
+        "おはよう\u263A",
         "\uDBC0\uDC78"
     ]
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=texts[random.randint(0, len(texts)-1)]))
+    messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
+    print(messages)
+    line_bot_api.reply_message(event.reply_token, messages)
 
 
 def main():
@@ -62,8 +62,8 @@ def main():
         "\uDBC0\uDC78"
     ]
     to = ["aaotfsm"]
-    messages = TextSendMessage(
-        text=texts[random.randint(0, len(texts)-1)])
+    messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
+    print(messages)
     try:
         line_bot_api.push_message("aaotfsm", messages=messages)
     except:
@@ -80,6 +80,6 @@ def main():
 
 if __name__ == "__main__":
     #    app.run()
-    main()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
+    main()
