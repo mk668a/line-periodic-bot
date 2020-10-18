@@ -2,7 +2,9 @@ from flask import Flask, request, abort
 from flask_script import Manager
 import os
 import random
-
+from rq import Queue
+from worker import conn
+from bottle import route, run
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -24,6 +26,9 @@ YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+
+# redis
+q = Queue(connection=conn)
 
 texts = [
     "おはよう\u263A",
@@ -65,6 +70,12 @@ def sendMessage():
         print("broadcast: success")
     except LineBotApiError as e:
         print("broadcast: ", e)
+
+
+@route('/index')
+def index():
+    result = q.enqueue(sendMessage)
+    return result
 
 
 @handler.add(MessageEvent, message=TextMessage)
