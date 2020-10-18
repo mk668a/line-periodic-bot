@@ -64,13 +64,22 @@ def main():
     to = ["aaotfsm"]
     messages = TextSendMessage(
         text=texts[random.randint(0, len(texts)-1)])
-    line_bot_api.push_message("aaotfsm", messages=messages)
-    line_bot_api.multicast(to, messages=messages)
-    line_bot_api.broadcast(messages=messages)
+    try:
+        line_bot_api.push_message("aaotfsm", messages=messages)
+    except:
+        print('error')
+    try:
+        line_bot_api.multicast(to, messages=messages)
+    except:
+        print('error')
+    try:
+        line_bot_api.broadcast(messages=messages)
+    except:
+        print('error')
 
 
 if __name__ == "__main__":
     #    app.run()
     main()
-    # port = int(os.getenv("PORT"))
-    # app.run(host="0.0.0.0", port=port)
+    port = int(os.getenv("PORT"))
+    app.run(host="0.0.0.0", port=port)
