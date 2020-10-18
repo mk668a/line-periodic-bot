@@ -60,3 +60,9 @@ if __name__ == "__main__":
     #    app.run()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
+    texts = [
+        "おはよう\u1F600",
+        "\uDBC0\uDC78"
+    ]
+    messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
+    line_bot_api.broadcast(messages=messages)
