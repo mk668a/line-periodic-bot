@@ -56,10 +56,7 @@ def handle_message(event):
         TextSendMessage(text=texts[random.randint(0, len(texts)-1)]))
 
 
-if __name__ == "__main__":
-    #    app.run()
-    port = int(os.getenv("PORT"))
-    app.run(host="0.0.0.0", port=port)
+def main():
     texts = [
         "おはよう\u1F600",
         "\uDBC0\uDC78"
@@ -70,3 +67,10 @@ if __name__ == "__main__":
     line_bot_api.push_message("aaotfsm", messages=messages)
     line_bot_api.multicast(to, messages=messages)
     line_bot_api.broadcast(messages=messages)
+
+
+if __name__ == "__main__":
+    #    app.run()
+    main()
+    # port = int(os.getenv("PORT"))
+    # app.run(host="0.0.0.0", port=port)
