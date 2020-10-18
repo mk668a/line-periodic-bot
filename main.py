@@ -1,5 +1,4 @@
 from flask import Flask, request, abort
-from flask_script import Manager
 import os
 import random
 
@@ -14,7 +13,6 @@ from linebot.models import (
 )
 
 app = Flask(__name__)
-manager = Manager(app)
 
 # 環境変数取得
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
@@ -52,14 +50,6 @@ def callback():
     return 'OK'
 
 
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
-    print(messages)
-    line_bot_api.reply_message(event.reply_token, messages)
-
-
-@manager.command
 def sendMessage():
     to = ["aaotfsm"]
     messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
@@ -78,8 +68,14 @@ def sendMessage():
         print('error')
 
 
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
+    print(messages)
+    line_bot_api.reply_message(event.reply_token, messages)
+    sendMessage()
+
+
 if __name__ == "__main__":
-    #    app.run()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
-    manager.run()
