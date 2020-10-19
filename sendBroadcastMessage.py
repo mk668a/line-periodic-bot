@@ -37,9 +37,10 @@ def callback():
 
 @manager.command
 def sendBroadcastMessage():
-    text = texts[random.randint(0, len(texts)-1)]
+    randomNumber = random.randint(0, len(texts)-1)
+    text = texts[randomNumber]
     messages = TextSendMessage(text=text)
-    DebugMessage("message", text)
+    DebugMessage("message", "text["+randomNumber+"]")
 
     try:
         line_bot_api.broadcast(messages=messages)
