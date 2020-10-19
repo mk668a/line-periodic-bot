@@ -37,6 +37,7 @@ def callback():
 def sendReplyMessage(event):
     text = texts[random.randint(0, len(texts)-1)]
     messages = TextSendMessage(text=text)
+    DebugMessage("message", text)
 
     try:
         line_bot_api.reply_message(
