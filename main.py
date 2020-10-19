@@ -68,19 +68,18 @@ def sendMessage():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
-    print("messages: ", messages)
+    # messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
+    # print("messages: ", messages)
 
-    try:
-        line_bot_api.reply_message(event.reply_token, messages)
-        print("broadcast: success")
-    except LineBotApiError as e:
-        print("reply_message: ", e)
-
+    # try:
+    #     line_bot_api.reply_message(event.reply_token, messages)
+    #     print("broadcast: success")
+    # except LineBotApiError as e:
+    #     print("reply_message: ", e)
     sendMessage()
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT"))
-    app.run(host="0.0.0.0", port=port)
+    # port = int(os.getenv("PORT"))
+    # app.run(host="0.0.0.0", port=port)
     manager.run()
