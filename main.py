@@ -36,7 +36,7 @@ texts = [
 
 @app.route("/")
 def index():
-    print("hello world")
+    print("hello, this is linebot.")
 
 
 @app.route("/callback", methods=['POST'])
@@ -57,17 +57,23 @@ def callback():
     return 'OK'
 
 
+def DebugMessage(debugType, debugMessage):
+    print("------------------------------------------------")
+    print("【message", debugType, ":", debugMessage, "】")
+    print("------------------------------------------------")
+
+
 @manager.command
 def sendMessage():
     text = texts[random.randint(0, len(texts)-1)]
     messages = TextSendMessage(text=text)
-    print("message: ", text)
+    print("----【message: ", text, "】----")
 
     try:
         line_bot_api.broadcast(messages=messages)
-        print("broadcast: success")
+        DebugMessage("broadcast", "success")
     except LineBotApiError as e:
-        print("broadcast: ", e)
+        DebugMessage("broadcast", e)
 
 
 @handler.add(MessageEvent, message=TextMessage)
