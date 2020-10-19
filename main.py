@@ -28,7 +28,9 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 texts = [
     "おはよう\u263A",
-    "\uDBC0\uDC78"
+    "\uDBC0\uDC78",
+    "電話していい？",
+    "それな",
 ]
 
 
