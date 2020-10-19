@@ -59,8 +59,9 @@ def callback():
 
 @manager.command
 def sendMessage():
-    messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
-    print("messages: ", messages.decode('unicode-escape'))
+    text = texts[random.randint(0, len(texts)-1)]
+    messages = TextSendMessage(text=text)
+    print("message: ", text)
 
     try:
         line_bot_api.broadcast(messages=messages)
