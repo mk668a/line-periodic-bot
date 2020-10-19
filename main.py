@@ -1,5 +1,5 @@
 from flask import Flask, request, abort
-from flask_script import Manager
+from flask_script import Manager, Server
 import os
 import random
 
@@ -15,6 +15,7 @@ from linebot.models import (
 
 from linebot.exceptions import LineBotApiError
 
+# flask appからmanager作成
 app = Flask(__name__)
 manager = Manager(app)
 
@@ -57,7 +58,7 @@ def callback():
 @manager.command
 def sendMessage():
     messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
-    print("messages: ", messages)
+    print("messages: ", messages.decode('unicode-escape'))
 
     try:
         line_bot_api.broadcast(messages=messages)
@@ -68,18 +69,11 @@ def sendMessage():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # messages = TextSendMessage(text=texts[random.randint(0, len(texts)-1)])
-    # print("messages: ", messages)
-
-    # try:
-    #     line_bot_api.reply_message(event.reply_token, messages)
-    #     print("broadcast: success")
-    # except LineBotApiError as e:
-    #     print("reply_message: ", e)
     sendMessage()
 
 
 if __name__ == "__main__":
-    # port = int(os.getenv("PORT"))
-    # app.run(host="0.0.0.0", port=port)
+    port = int(os.getenv("PORT"))
+    manager.add_command('runserver', Server(
+        host='0.0.0.0', port=port, debug=True))
     manager.run()
