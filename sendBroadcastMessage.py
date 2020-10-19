@@ -1,5 +1,5 @@
 from flask import Flask, request, abort
-from flask_script import Manager, Server
+from flask_script import Server
 import os
 import random
 from linebot.exceptions import (
@@ -14,7 +14,7 @@ from config import app, manager, line_bot_api, handler, texts, DebugMessage
 
 @app.route("/")
 def index():
-    print("hello, this is linebot sendMessage.")
+    print("hello, this is linebot sendBroadcastMessage.")
 
 
 @app.route("/callback", methods=['POST'])
@@ -39,7 +39,7 @@ def callback():
 def sendBroadcastMessage():
     text = texts[random.randint(0, len(texts)-1)]
     messages = TextSendMessage(text=text)
-    print("----【message: ", text, "】----")
+    DebugMessage("message", text)
 
     try:
         line_bot_api.broadcast(messages=messages)

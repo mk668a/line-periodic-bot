@@ -13,7 +13,7 @@ from config import app, manager, line_bot_api, handler, texts, DebugMessage
 
 @app.route("/")
 def index():
-    print("hello, this is linebot MessageEvent.")
+    print("hello, this is linebot sendReplyMessage.")
 
 
 @app.route("/callback", methods=['POST'])
